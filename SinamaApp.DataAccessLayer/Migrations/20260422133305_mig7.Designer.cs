@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SinamaApp.DataAccessLayer.Concrete.EFCore;
 
@@ -11,9 +12,11 @@ using SinamaApp.DataAccessLayer.Concrete.EFCore;
 namespace SinamaApp.DataAccessLayer.Migrations
 {
     [DbContext(typeof(SinamaAppDbContext))]
-    partial class SinamaAppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260422133305_mig7")]
+    partial class mig7
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -29,7 +29,7 @@ namespace SinamaSalonuApp
             ServiceCollection services = new();
             services.AddTransient<Form1>();
             services.AddTransient<ucAddFilm>();
-            services.AddTransient<ucFilmList>();
+            services.AddTransient<ucList>();
             services.AddTransient<ucSeansList>();
             services.AddTransient<ucBiletAl>();
             services.AddTransient<ucKasa>();
@@ -40,10 +40,12 @@ namespace SinamaSalonuApp
             services.AddTransient<ucSeansAdd>();
             services.AddTransient<ucSessionDelete>();
             services.AddTransient<ucSessionUpdate>();
-            services.AddTransient<ucActorList>();
             services.AddTransient<ucActorAdd>();
             services.AddTransient<ucActorDelete>();
             services.AddTransient<ucActorUpdate>();
+            services.AddTransient<ucDirectorAdd>();
+            services.AddTransient<ucDirectorUpdate>();
+            services.AddTransient<ucDirectorDelete>();
             services.AddDbContextFactory<SinamaAppDbContext>(options => 
                 options.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=SinamaSalonuAppDB;Trusted_Connection=True;TrustServerCertificate=True;"));
             services.AddScoped<IFilmDAL, EfFilmDAL>();

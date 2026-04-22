@@ -765,6 +765,7 @@ namespace SinamaSalonuApp
             btnDirectorDelete.Size = new Size(186, 45);
             btnDirectorDelete.TabIndex = 8;
             btnDirectorDelete.Text = "Yonetmen Sil";
+            btnDirectorDelete.Click += btnDirectorDelete_Click;
             // 
             // btnDirectorUpdate
             // 
@@ -784,6 +785,7 @@ namespace SinamaSalonuApp
             btnDirectorUpdate.Size = new Size(243, 45);
             btnDirectorUpdate.TabIndex = 7;
             btnDirectorUpdate.Text = "Yonetmen Güncelle";
+            btnDirectorUpdate.Click += btnDirectorUpdate_Click;
             // 
             // btnDirectorAdd
             // 
@@ -803,6 +805,7 @@ namespace SinamaSalonuApp
             btnDirectorAdd.Size = new Size(207, 45);
             btnDirectorAdd.TabIndex = 1;
             btnDirectorAdd.Text = "Yonetmen Ekle";
+            btnDirectorAdd.Click += btnDirectorAdd_Click;
             // 
             // btnDirectorList
             // 

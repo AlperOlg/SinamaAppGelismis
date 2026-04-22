@@ -32,8 +32,16 @@ namespace SinamaApp.DataAccessLayer.Concrete.EFCore
         {
             if (!optionsBuilder.IsConfigured)
             {
-                IConfigurationRoot configurationRoot = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile("appsettings.json").Build();
-                optionsBuilder.UseSqlServer(configurationRoot.GetConnectionString("DefaultConnection"));
+                IConfigurationRoot configurationRoot = new ConfigurationBuilder().SetBasePath(AppDomain.CurrentDomain.BaseDirectory).AddJsonFile("appsettings.json",optional:true).Build();
+                string? connectionString = configurationRoot.GetConnectionString("DefaultConnection");
+                if(string.IsNullOrWhiteSpace(connectionString) || string.IsNullOrEmpty(connectionString))
+                {
+                    optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=SinamaSalonuAppDB;Trusted_Connection=True;TrustServerCertificate=True");
+                }
+                else
+                {
+                    optionsBuilder.UseSqlServer(connectionString);
+                }
             }
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -74,8 +82,8 @@ namespace SinamaApp.DataAccessLayer.Concrete.EFCore
             modelBuilder.Entity<Bilet>().HasKey(b => b.ID);
             modelBuilder.Entity<Bilet>().HasIndex(b => new { b.SeansID, b.KoltukID }).IsUnique();
             modelBuilder.Entity<Bilet>().Property(b => b.Fiyat).IsRequired();
-            modelBuilder.Entity<Bilet>().HasOne(b => b.Kullanici).WithMany().HasForeignKey(b => b.KullaniciID).OnDelete(DeleteBehavior.NoAction);
-            modelBuilder.Entity<Bilet>().HasOne(b => b.Seans).WithMany().HasForeignKey(b => b.SeansID).OnDelete(DeleteBehavior.NoAction);
+            modelBuilder.Entity<Bilet>().HasOne(b => b.Kullanici).WithMany().HasForeignKey(b => b.KullaniciID).OnDelete(DeleteBehavior.Cascade);
+            modelBuilder.Entity<Bilet>().HasOne(b => b.Seans).WithMany().HasForeignKey(b => b.SeansID).OnDelete(DeleteBehavior.Cascade);
 
             #endregion
             #region Oyuncu

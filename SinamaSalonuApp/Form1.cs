@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using SinamaApp.Business.Abstract;
 using SinamaApp.Entities.Concrete;
 using SinamaSalonuApp.Helpers;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace SinamaSalonuApp
@@ -10,7 +11,6 @@ namespace SinamaSalonuApp
     {
         private readonly IFilmService _filmService;
         private readonly ucAddFilm _ucAddFilm;
-        private readonly ucFilmList _ucFilmList;
         private readonly ucSeansList _ucSeansList;
         private readonly ucBiletAl _ucBiletAl;
         private readonly ucLogin _ucLogin;
@@ -21,19 +21,22 @@ namespace SinamaSalonuApp
         private readonly ucSeansAdd _ucSeansAdd;
         private readonly ucSessionDelete _ucSessionDelete;
         private readonly ucSessionUpdate _ucSessionUpdate;
-        private readonly ucActorList _ucActorList;
         private readonly ucActorAdd _ucActorAdd;
         private readonly ucActorUpdate _ucActorUpdate;
         private readonly ucActorDelete _ucActorDelete;
+        private readonly ucDirectorAdd _ucDirectorAdd;
+        private readonly ucDirectorUpdate _ucDirectorUpdate;
+        private readonly ucDirectorDelete _ucDirectorDelete;
+        private readonly ucList _ucList;
         private readonly IKullaniciService _kullaniciService;
-
+        public enum EntityEnum { Film, Yonetmen, Oyuncu, Salon }
         public static Kullanici? LoggedInUser { get; private set; }
 
-        public Form1(IFilmService filmService, ucAddFilm ucAddFilm, ucFilmList ucFilmList, ucSeansList ucSeansList, ucBiletAl ucBiletAl, ucLogin ucLogin, ucRegister ucRegister, ucKasa ucKasa, ucUpdateFilm ucUpdateFilm, ucDeleteFilm ucDeleteFilm, ucSeansAdd ucSeansAdd, ucSessionDelete ucSessionDelete, ucSessionUpdate ucSessionUpdate, ucActorList ucActorList, ucActorAdd ucActorAdd, ucActorDelete ucActorDelete, ucActorUpdate ucActorUpdate, IKullaniciService kullaniciService)
+        public Form1(IFilmService filmService, ucAddFilm ucAddFilm, ucList ucList, ucSeansList ucSeansList, ucBiletAl ucBiletAl, ucLogin ucLogin, ucRegister ucRegister, ucKasa ucKasa, ucUpdateFilm ucUpdateFilm, ucDeleteFilm ucDeleteFilm, ucSeansAdd ucSeansAdd, ucSessionDelete ucSessionDelete, ucSessionUpdate ucSessionUpdate, ucActorAdd ucActorAdd, ucActorDelete ucActorDelete, ucActorUpdate ucActorUpdate, ucDirectorAdd ucDirectorAdd, ucDirectorUpdate ucDirectorUpdate,ucDirectorDelete ucDirectorDelete, IKullaniciService kullaniciService)
         {
             InitializeComponent();
             _ucAddFilm = ucAddFilm;
-            _ucFilmList = ucFilmList;
+            _ucList = ucList;
             _ucSeansList = ucSeansList;
             _ucBiletAl = ucBiletAl;
             _ucLogin = ucLogin;
@@ -45,10 +48,12 @@ namespace SinamaSalonuApp
             _ucSessionDelete = ucSessionDelete;
             _ucSessionUpdate = ucSessionUpdate;
             _filmService = filmService;
-            _ucActorList = ucActorList;
             _ucActorAdd = ucActorAdd;
             _ucActorDelete = ucActorDelete;
             _ucActorUpdate = ucActorUpdate;
+            _ucDirectorAdd = ucDirectorAdd;
+            _ucDirectorUpdate = ucDirectorUpdate;
+            _ucDirectorDelete = ucDirectorDelete;
             _kullaniciService = kullaniciService;
 
             _ucLogin.LoginSuccessful += (s, user) =>
@@ -178,8 +183,9 @@ namespace SinamaSalonuApp
         }
         private async Task ShowFilmList()
         {
-            ChangeUserControl(_ucFilmList);
-            await _ucFilmList.Listele();
+            _ucList.entityEnum = EntityEnum.Film;
+            ChangeUserControl(_ucList);
+            await _ucList.VerileriYukle();
         }
 
         private void btnUser_Click(object sender, EventArgs e)
@@ -305,8 +311,9 @@ namespace SinamaSalonuApp
         }
         private async Task ShowActorList()
         {
-            ChangeUserControl(_ucActorList);
-            await _ucActorList.Listele();
+            _ucList.entityEnum = EntityEnum.Oyuncu;
+            ChangeUserControl(_ucList);
+            await _ucList.VerileriYukle();
         }
 
         private void btnActorAdd_Click(object sender, EventArgs e)
@@ -347,8 +354,44 @@ namespace SinamaSalonuApp
             ChangeButtonColor(Color.FromArgb(36, 158, 148), btnFilms, btnUser, btnSessions, btnActors);
         }
 
-        private void btnDirectorList_Click(object sender, EventArgs e)
+        private async void btnDirectorList_Click(object sender, EventArgs e)
         {
+            await ShowDirectorList();
+        }
+        private async Task ShowDirectorList()
+        {
+            _ucList.entityEnum = EntityEnum.Yonetmen;
+            ChangeUserControl(_ucList);
+            await _ucList.VerileriYukle();
+        }
+
+        private void btnDirectorAdd_Click(object sender, EventArgs e)
+        {
+            ShowDirectorAdd();
+        }
+        private void ShowDirectorAdd()
+        {
+            ChangeUserControl(_ucDirectorAdd);
+        }
+
+        private async void btnDirectorDelete_Click(object sender, EventArgs e)
+        {
+            await ShowDirectorDelete();
+        }
+        private async Task ShowDirectorDelete()
+        {
+            ChangeUserControl(_ucDirectorDelete);
+            await _ucDirectorDelete.VerileriYukle();
+        }
+
+        private async void btnDirectorUpdate_Click(object sender, EventArgs e)
+        {
+            await ShowDirectorUpdate();
+        }
+        private async Task ShowDirectorUpdate()
+        {
+            ChangeUserControl(_ucDirectorUpdate);
+            await _ucDirectorUpdate.VerileriYukle();
         }
     }
 }

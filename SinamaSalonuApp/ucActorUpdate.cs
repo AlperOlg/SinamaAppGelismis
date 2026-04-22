@@ -59,7 +59,7 @@ namespace SinamaSalonuApp
             { MessageBox.Show("Güncelleme için boş bilgi bırakmayın", "bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
 
             if (dtpBirthDate.Value > DateTime.Today)
-            { MessageBox.Show("Doğum tarihi girşini düzgün yapın", "uyarı", MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
+            { MessageBox.Show("Doğum tarihi girşini düzgün yapın", "bilgi", MessageBoxButtons.OK, MessageBoxIcon.Information); return; }
 
             try
             {
