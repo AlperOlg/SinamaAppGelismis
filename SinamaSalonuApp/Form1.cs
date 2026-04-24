@@ -31,7 +31,7 @@ namespace SinamaSalonuApp
         private readonly IKullaniciService _kullaniciService;
         public enum EntityEnum { Film, Yonetmen, Oyuncu, Salon }
         public static Kullanici? LoggedInUser { get; private set; }
-
+        //TODO: Kullanıcı model sınıfına IsAdmin propertysi eklenecek. Form1 Giriş esnasında yetki kontrolü yapılarak, admin paneli butonu aktif edilecek. CRUD işlemleri admin paneline taşınacak ve Form1 üzerindeki constructor over injection optimize edilecek.
         public Form1(IFilmService filmService, ucAddFilm ucAddFilm, ucList ucList, ucSeansList ucSeansList, ucBiletAl ucBiletAl, ucLogin ucLogin, ucRegister ucRegister, ucKasa ucKasa, ucUpdateFilm ucUpdateFilm, ucDeleteFilm ucDeleteFilm, ucSeansAdd ucSeansAdd, ucSessionDelete ucSessionDelete, ucSessionUpdate ucSessionUpdate, ucActorAdd ucActorAdd, ucActorDelete ucActorDelete, ucActorUpdate ucActorUpdate, ucDirectorAdd ucDirectorAdd, ucDirectorUpdate ucDirectorUpdate,ucDirectorDelete ucDirectorDelete, IKullaniciService kullaniciService)
         {
             InitializeComponent();
