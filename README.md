@@ -1,4 +1,4 @@
-# SinamaAppGelismis
+# CinamaApp
 Bu proje, modern yazılım geliştirme prensipleri ve kurumsal mimari yaklaşımları kullanılarak geliştirilmiş kapsamlı bir sinema yönetim sistemidir. CRUD işlemlerinin ötesinde, asenkron programlama ve bağımlılık yönetimi gibi ileri seviye teknikleri barındırır.
 
 --Kullanılan Teknolojiler ve Mimariler:
